@@ -196,6 +196,9 @@
   .inline {
     display: inline;
   }
+  .inline-flex {
+    display: inline-flex;
+  }
   .flex-shrink {
     flex-shrink: 1;
   }
@@ -211,9 +214,18 @@
   .flex-wrap {
     flex-wrap: wrap;
   }
+  .items-center {
+    align-items: center;
+  }
+  .gap-1\.5 {
+    gap: calc(var(--spacing) * 1.5);
+  }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
+  }
+  .opacity-50 {
+    opacity: 50%;
   }
   .blur {
     --tw-blur: blur(8px);

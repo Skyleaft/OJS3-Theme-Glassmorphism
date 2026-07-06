@@ -196,9 +196,6 @@
   .inline {
     display: inline;
   }
-  .inline-flex {
-    display: inline-flex;
-  }
   .flex-shrink {
     flex-shrink: 1;
   }
@@ -214,18 +211,9 @@
   .flex-wrap {
     flex-wrap: wrap;
   }
-  .items-center {
-    align-items: center;
-  }
-  .gap-1\.5 {
-    gap: calc(var(--spacing) * 1.5);
-  }
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
-  }
-  .opacity-50 {
-    opacity: 50%;
   }
   .blur {
     --tw-blur: blur(8px);
@@ -450,6 +438,21 @@ body {
 }
 .nav-has-dropdown {
   position: relative;
+}
+.nav-caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 6px;
+  vertical-align: middle;
+  border-top: 4px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  opacity: 0.5;
+  transition: transform 0.25s ease;
+}
+.nav-has-dropdown:hover .nav-caret {
+  transform: rotate(180deg);
 }
 .nav-dropdown {
   position: absolute;

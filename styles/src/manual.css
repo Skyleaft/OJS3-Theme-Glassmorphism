@@ -212,6 +212,21 @@ body {
 .nav-has-dropdown {
   position: relative;
 }
+.nav-caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 6px;
+  vertical-align: middle;
+  border-top: 4px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  opacity: 0.5;
+  transition: transform 0.25s ease;
+}
+.nav-has-dropdown:hover .nav-caret {
+  transform: rotate(180deg);
+}
 .nav-dropdown {
   position: absolute;
   top: 100%;

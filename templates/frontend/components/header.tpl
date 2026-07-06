@@ -75,13 +75,10 @@
                     </a>
                 </li>
                 <li class="nav-link-item nav-has-dropdown">
-                    <a class="nav-link {if $requestedPage eq 'about'}active{/if} inline-flex items-center gap-1.5"
+                    <a class="nav-link{if $requestedPage eq 'about'} active{/if}"
                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}"
                        aria-haspopup="true" aria-expanded="false">
-                        {translate key="navigation.about"}
-                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" class="opacity-50">
-                            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        {translate key="navigation.about"}<span class="nav-caret"></span>
                     </a>
                     <div class="nav-dropdown" role="menu">
                         <a class="nav-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}" role="menuitem">

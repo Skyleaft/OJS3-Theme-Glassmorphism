@@ -74,11 +74,31 @@
                         {translate key="navigation.archives"}
                     </a>
                 </li>
-                <li class="nav-link-item">
+                <li class="nav-link-item nav-has-dropdown">
                     <a class="nav-link{if $requestedPage eq 'about'} active{/if}"
-                       href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}">
-                        {translate key="navigation.about"}
+                       href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}"
+                       aria-haspopup="true" aria-expanded="false">
+                        <span style="display:flex;align-items:center;">
+                            {translate key="navigation.about"}
+                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style="margin-left:6px;opacity:0.5;">
+                                <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
                     </a>
+                    <div class="nav-dropdown" role="menu">
+                        <a class="nav-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}" role="menuitem">
+                            {translate key="about.aboutContext"}
+                        </a>
+                        <a class="nav-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='editorialTeam'}" role="menuitem">
+                            {translate key="about.editorialTeam"}
+                        </a>
+                        <a class="nav-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='submissions'}" role="menuitem">
+                            {translate key="about.submissions"}
+                        </a>
+                        <a class="nav-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='contact'}" role="menuitem">
+                            {translate key="about.contact"}
+                        </a>
+                    </div>
                 </li>
                 <li class="nav-link-item">
                     <a class="nav-link{if $requestedPage eq 'search'} active{/if}"

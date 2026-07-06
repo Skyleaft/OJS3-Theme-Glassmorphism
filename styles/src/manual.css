@@ -209,6 +209,49 @@ body {
   background: var(--color-accent);
   border-radius: 1px;
 }
+.nav-has-dropdown {
+  position: relative;
+}
+.nav-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px) scale(0.96);
+  min-width: 14rem;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur, 20px)) saturate(120%);
+  backdrop-filter: blur(var(--glass-blur, 20px)) saturate(120%);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.75rem;
+  box-shadow: var(--glass-shadow-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 200;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.nav-has-dropdown:hover .nav-dropdown,
+.nav-dropdown:hover {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  pointer-events: auto;
+}
+.nav-dropdown-item {
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--glass-text-muted);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.nav-dropdown-item:hover {
+  background: var(--glass-bg);
+  color: var(--glass-text);
+  transform: translateX(4px);
+}
 .nav-actions {
   display: flex;
   align-items: center;

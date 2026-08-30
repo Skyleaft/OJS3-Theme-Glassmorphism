@@ -142,7 +142,7 @@
     {* ═══════════════════════════════════════════════════════════════════════════
        LAYER 2: MAIN NAVIGATION BAR (STICKY)
        ═══════════════════════════════════════════════════════════════════════════ *}
-    <nav class="glass-nav site-nav" id="site-nav" role="navigation"
+    <nav class="glass-nav site-nav{if $requestedPage && $requestedPage neq 'index'} has-breadcrumbs{/if}" id="site-nav" role="navigation"
          aria-label="{translate key='common.navigation.site'}">
         <div class="nav-inner">
 

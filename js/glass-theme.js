@@ -69,10 +69,15 @@
     // ─── 3. Nav & Scroll ─────────────────────────────────────────────────────
     function initNav() {
         const nav = $('.glass-nav');
+        const breadcrumbs = $('.breadcrumbs-bar');
         if (!nav) return;
 
         window.addEventListener('scroll', () => {
-            nav.classList.toggle('nav-scrolled', window.scrollY > 50);
+            const isScrolled = window.scrollY > 40;
+            nav.classList.toggle('nav-scrolled', isScrolled);
+            if (breadcrumbs) {
+                breadcrumbs.classList.toggle('nav-scrolled', isScrolled);
+            }
         }, { passive: true });
 
         // Mobile menu

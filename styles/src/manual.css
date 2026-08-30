@@ -256,6 +256,18 @@ body {
   box-shadow: var(--glass-shadow);
   border-bottom-color: var(--glass-border-hover);
 }
+
+/* Seamless fusion when breadcrumbs bar is present */
+.glass-nav.has-breadcrumbs,
+.site-nav.has-breadcrumbs {
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+.glass-nav.has-breadcrumbs.nav-scrolled,
+.site-nav.has-breadcrumbs.nav-scrolled {
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
 .nav-inner {
   display: flex;
   align-items: center;
@@ -969,15 +981,21 @@ body {
   text-align: right;
 }
 .breadcrumbs-bar {
-  background: var(--glass-bg);
-  -webkit-backdrop-filter: blur(calc(var(--glass-blur) * 0.75)) saturate(130%);
-  backdrop-filter: blur(calc(var(--glass-blur) * 0.75)) saturate(130%);
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
   border-bottom: 1px solid var(--glass-border);
-  padding: 0.55rem 1.5rem;
+  padding: 0.45rem 1.5rem 0.6rem;
   position: sticky;
   top: 4.25rem;
   z-index: 85;
   transition: var(--transition-glass);
+}
+.breadcrumbs-bar.nav-scrolled {
+  background: var(--nav-scrolled-bg);
+  box-shadow: var(--glass-shadow);
+  border-bottom-color: var(--glass-border-hover);
 }
 .breadcrumbs {
   display: flex;

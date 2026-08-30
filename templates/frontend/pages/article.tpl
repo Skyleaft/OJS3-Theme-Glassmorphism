@@ -6,7 +6,6 @@
  *}
 
 {include file="frontend/components/header.tpl"}
-{include file="frontend/components/breadcrumbs.tpl"}
 
 <main id="main-content" class="page-fade">
     <div class="article-layout">

@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/submissions.tpl
  *
  * Glass Theme — Submissions page
@@ -39,7 +39,7 @@
                         </p>
                     </div>
                     <div style="display: flex; gap: .75rem;">
-                        <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='submission' op='wizard'}"
+                        <a href="{url page='submission' op='wizard'}"
                             class="glass-btn glass-btn-primary">
                             {translate key="about.onlineSubmissions.submitPost"}
                         </a>

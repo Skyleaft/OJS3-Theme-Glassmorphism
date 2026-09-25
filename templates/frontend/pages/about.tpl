@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/about.tpl
  *
  * Glass Theme — About page
@@ -39,15 +39,15 @@
                 {* Optional: Editorial Team Link *}
                 <div
                     style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='editorialTeam'}"
+                    <a href="{url page='about' op='editorialTeam'}"
                         class="glass-btn glass-btn-ghost">
                         {translate key="about.editorialTeam"}
                     </a>
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='submissions'}"
+                    <a href="{url page='about' op='submissions'}"
                         class="glass-btn glass-btn-ghost">
                         {translate key="about.submissions"}
                     </a>
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='contact'}"
+                    <a href="{url page='about' op='contact'}"
                         class="glass-btn glass-btn-ghost">
                         {translate key="about.contact"}
                     </a>

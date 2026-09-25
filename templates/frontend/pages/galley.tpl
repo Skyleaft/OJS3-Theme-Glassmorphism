@@ -38,7 +38,7 @@
                             </svg>
                             {translate key="submission.returnToArticle"}
                         </a>
-                        <a href="{url page="article" op="download" path=$article->getBestId()|to_array:$galley->getBestId()}"
+                        <a href="{url page="article" op="download" path=$article->getBestId()|to_array:$galley->getBestGalleyId()}"
                             class="glass-btn glass-btn-primary">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" style="margin-right: .5rem;">
@@ -59,7 +59,7 @@
                         {if $galley->isHtmlGalley()}
                             {* HTML galleys are usually displayed in an iframe *}
                             <iframe name="htmlGalleyFrame"
-                                src="{url page="article" op="download" path=$article->getBestId()|to_array:$galley->getBestId() inline=true}"
+                                src="{url page="article" op="download" path=$article->getBestId()|to_array:$galley->getBestGalleyId() inline=true}"
                                 allowfullscreen webkitallowfullscreen></iframe>
                         {else}
                             {* For other types, try to display them or provide a download message *}
@@ -67,7 +67,7 @@
                                 <div style="font-size: 3rem; margin-bottom: 1.5rem; opacity: .3;">📄</div>
                                 <h2>{translate key="submission.galleyFiles"}</h2>
                                 <p>{translate key="plugins.themes.glassTheme.galley.downloadPrompt"}</p>
-                                <a href="{url page="article" op="download" path=$article->getBestId()|to_array:$galley->getBestId()}"
+                                <a href="{url page="article" op="download" path=$article->getBestId()|to_array:$galley->getBestGalleyId()}"
                                     class="glass-btn glass-btn-primary" style="margin-top: 1.5rem;">
                                     {translate key="common.download"} {$galley->getGalleyLabel()|escape}
                                 </a>

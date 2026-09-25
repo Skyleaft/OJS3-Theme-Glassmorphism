@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/userRegister.tpl
  *
  * Glass Theme — Registration page with split layout
@@ -168,11 +168,18 @@
                             <label style="display: flex; align-items: flex-start; gap: 1rem; color: var(--glass-text-muted); cursor: pointer; font-size: .9rem; line-height: 1.6; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 1rem;">
                                 <input type="checkbox" name="privacyConsent" value="1" {if $privacyConsent}checked{/if} required style="accent-color: var(--color-accent); margin-top: .35rem; transform: scale(1.15);">
                                 <span>
-                                    {capture assign="privacyUrl"}{url router=PKP\core\PKPApplication::ROUTE_PAGE page="about" op="privacy"}{/capture}
+                                    {capture assign="privacyUrl"}{url page="about" op="privacy"}{/capture}
                                     {translate key="user.register.privacyConsent" privacyUrl=$privacyUrl}
                                 </span>
                             </label>
                         </div>
+
+                        {* reCAPTCHA support if configured *}
+                        {if $reCaptchaHtml}
+                            <div class="recaptcha_wrapper" style="margin-bottom: 2rem; display: flex; justify-content: center;">
+                                {$reCaptchaHtml}
+                            </div>
+                        {/if}
 
                         <button type="submit" class="glass-btn glass-btn-primary" style="width: 100%; justify-content: center; padding: 1.25rem; font-size: 1.1rem; height: auto; border-radius: 1rem;">
                             {translate key="user.register"}

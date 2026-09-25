@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/userRegisterPending.tpl
  *
  * Glass Theme — Registration pending page (email verification required)
@@ -27,10 +27,10 @@
                 </div>
 
                 <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="index"}" class="glass-btn glass-btn-primary" style="padding: 1rem 2rem;">
+                    <a href="{url page="index"}" class="glass-btn glass-btn-primary" style="padding: 1rem 2rem;">
                         {translate key="navigation.archives.continueBrowsing"}
                     </a>
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="login"}" class="glass-btn" style="padding: 1rem 2rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);">
+                    <a href="{url page="login"}" class="glass-btn" style="padding: 1rem 2rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);">
                         {translate key="user.login"}
                     </a>
                 </div>

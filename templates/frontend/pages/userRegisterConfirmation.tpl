@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/userRegisterConfirmation.tpl
  *
  * Glass Theme — Registration confirmation success page (after email verification)
@@ -42,11 +42,11 @@
                 </div>
 
                 <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); display: flex; justify-content: center; gap: 1.5rem; font-size: 0.9rem;">
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="index"}" style="color: var(--glass-text-muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--glass-text)'" onmouseout="this.style.color='var(--glass-text-muted)'">
+                    <a href="{url page="index"}" style="color: var(--glass-text-muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--glass-text)'" onmouseout="this.style.color='var(--glass-text-muted)'">
                         {translate key="navigation.homePage"}
                     </a>
                     <span style="color: var(--glass-border)">|</span>
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="about" op="contact"}" style="color: var(--glass-text-muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--glass-text)'" onmouseout="this.style.color='var(--glass-text-muted)'">
+                    <a href="{url page="about" op="contact"}" style="color: var(--glass-text-muted); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--glass-text)'" onmouseout="this.style.color='var(--glass-text-muted)'">
                         {translate key="about.contact"}
                     </a>
                 </div>

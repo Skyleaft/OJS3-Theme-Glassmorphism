@@ -48,7 +48,7 @@ class GlassThemePlugin extends ThemePlugin
         // error_log('GlassThemePlugin: init() called');
         // Inherit every template & style from the default OJS theme.
         // We only override what we explicitly need to.
-        $this->setParent('defaultTheme');
+        $this->setParent('defaultthemeplugin');
 
         // ── Theme Options (visible in Website → Appearance) ───────────────
         $this->addOption(self::OPTION_COLOR_ACCENT, 'radio', [
@@ -148,6 +148,9 @@ class GlassThemePlugin extends ThemePlugin
 
         // ── Dynamic CSS Variables from Options ────────────────────────────
         $this->addStyle('glass-dynamic-vars', $this->buildDynamicVars(), ['inline' => true]);
+
+        // ── Scripts ───────────────────────────────────────────────────────
+        $this->addScript('glass-theme-js', 'js/glass-theme.js');
 
         // ── Template Data ─────────────────────────────────────────────────
         \PKP\plugins\Hook::add('TemplateManager::display', [$this, 'loadTemplateData']);

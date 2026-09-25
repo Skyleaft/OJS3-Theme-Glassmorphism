@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/components/breadcrumbs.tpl
  *
  * Glass Theme — Frosted-glass breadcrumb bar with smart dynamic fallback
@@ -39,7 +39,7 @@
         <ol class="breadcrumbs">
             {* 1. Home Crumb *}
             <li class="breadcrumb-item">
-                <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='index'}">
+                <a href="{url page='index'}">
                     <span class="breadcrumb-home-icon" aria-hidden="true">🏠</span>
                     <span>{translate key="navigation.homePage"}</span>
                 </a>
@@ -51,7 +51,7 @@
                     <svg class="breadcrumb-separator" width="6" height="10" viewBox="0 0 6 10" fill="none" aria-hidden="true">
                         <path d="M1 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}">{translate key="navigation.about"}</a>
+                    <a href="{url page='about'}">{translate key="navigation.about"}</a>
                 </li>
             {/if}
             {if $requestedPage eq 'issue' && $requestedOp && $requestedOp neq 'archive'}
@@ -59,7 +59,7 @@
                     <svg class="breadcrumb-separator" width="6" height="10" viewBox="0 0 6 10" fill="none" aria-hidden="true">
                         <path d="M1 1l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='issue' op='archive'}">{translate key="navigation.archives"}</a>
+                    <a href="{url page='issue' op='archive'}">{translate key="navigation.archives"}</a>
                 </li>
             {/if}
 

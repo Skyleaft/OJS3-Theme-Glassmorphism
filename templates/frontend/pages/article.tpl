@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/article.tpl
  *
  * Glass Theme — Article detail page
@@ -31,6 +31,13 @@
                     {foreach from=$authors item=author}
                         <span class="author-chip">
                             {$author->getFullName()|escape}
+                            {if $author->getOrcid()}
+                                <a href="{$author->getOrcid()|escape}" target="_blank" rel="noopener noreferrer" class="orcid-icon" aria-label="ORCID iD" style="display:inline-flex;align-items:center;color:#a6ce39;margin-left:0.35rem;vertical-align:middle;">
+                                    <svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor">
+                                        <path d="M128 0C57.3 0 0 57.3 0 128s57.3 128 128 128 128-57.3 128-128S198.7 0 128 0zm-38.6 195.8H64.9V85.7h24.5v110.1zm-12.3-125c-8.2 0-14.8-6.6-14.8-14.8s6.6-14.8 14.8-14.8 14.8 6.6 14.8 14.8-6.6 14.8-14.8 14.8zm118.8 77.2c0 30-19.3 47.8-49 47.8h-37.6V85.7h40.5c28.3 0 46.1 17.5 46.1 47.4zm-62.5-30.8v61.7h13.9c18.5 0 26.6-10.7 26.6-30.8 0-20.3-8.1-30.9-26.6-30.9h-13.9z"/>
+                                    </svg>
+                                </a>
+                            {/if}
                             {if $author->getLocalizedData('affiliation')}
                                 <span style="opacity:.6;margin-left:.15rem;">
                                     · {$author->getLocalizedData('affiliation')|escape|truncate:35:"…"}
@@ -87,6 +94,8 @@
                 </div>
             {/if}
 
+            {call_hook name="Templates::Article::Main"}
+
         </div>
 
         {* ── Glass Sidebar ─────────────────────────────────────────────────────── *}
@@ -126,8 +135,7 @@
                     <div class="meta-row">
                         <span class="meta-label">{translate key="issue.issue"}</span>
                         <span class="meta-value">
-                            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE
-                                   page='issue' op='view' path=$issue->getBestIssueId()}"
+                            <a href="{url page='issue' op='view' path=$issue->getBestIssueId()}"
                                 style="color:var(--color-accent-light);text-decoration:none;">
                                 Vol. {$issue->getVolume()} No. {$issue->getNumber()}
                             </a>
@@ -179,27 +187,47 @@
             {/if}
 
             {* How to cite *}
-            <div class="glass-card-sm sidebar-section" style="padding:1.25rem;border-radius:.625rem;">
-                <div class="sidebar-title">{translate key="submission.howToCite"}</div>
-                <p style="font-size:.775rem;color:var(--glass-text-muted);line-height:1.65;">
-                    {foreach from=$authors item=author name=al}
-                        {$author->getFullName()|escape}{if not $smarty.foreach.al.last}, {/if}
-                    {/foreach}
-                    ({$publication->getData('datePublished')|date_format:"%Y"}).
-                    {$publication->getLocalizedData('title')|escape}.
-                    <em>{$currentJournal->getLocalizedName()|escape}</em>,
-                    {if $issue}
-                        {$issue->getVolume()}({$issue->getNumber()})
-                        {if $publication->getData('pages')}, {$publication->getData('pages')|escape}{/if}.
+            {if $citation}
+                <div class="glass-card-sm sidebar-section" style="padding:1.25rem;border-radius:.625rem;">
+                    <div class="sidebar-title">{translate key="submission.howToCite"}</div>
+                    <div class="citation_output" style="font-size:.775rem;color:var(--glass-text-muted);line-height:1.65;">
+                        {$citation}
+                    </div>
+                    {if $citationArgs}
+                        <div style="margin-top:.75rem;">
+                            <a href="{url page="citationstylelanguage" op="get" path=$citationArgs.submissionId|to_array:$citationArgs.citationStyle:json}" class="sidebar-link" style="font-size:.75rem;color:var(--color-accent-light);text-decoration:none;">
+                                {translate key="submission.howToCite.citationFormats"}
+                            </a>
+                        </div>
                     {/if}
-                    {if $publication->getData('pub-id::doi')}
-                        https://doi.org/{$publication->getData('pub-id::doi')|escape}
-                    {/if}
-                </p>
-            </div>
+                </div>
+            {else}
+                <div class="glass-card-sm sidebar-section" style="padding:1.25rem;border-radius:.625rem;">
+                    <div class="sidebar-title">{translate key="submission.howToCite"}</div>
+                    <p style="font-size:.775rem;color:var(--glass-text-muted);line-height:1.65;">
+                        {foreach from=$authors item=author name=al}
+                            {$author->getFullName()|escape}{if not $smarty.foreach.al.last}, {/if}
+                        {/foreach}
+                        ({$publication->getData('datePublished')|date_format:"%Y"}).
+                        {$publication->getLocalizedData('title')|escape}.
+                        <em>{$currentJournal->getLocalizedName()|escape}</em>,
+                        {if $issue}
+                            {$issue->getVolume()}({$issue->getNumber()})
+                            {if $publication->getData('pages')}, {$publication->getData('pages')|escape}{/if}.
+                        {/if}
+                        {if $publication->getData('pub-id::doi')}
+                            https://doi.org/{$publication->getData('pub-id::doi')|escape}
+                        {/if}
+                    </p>
+                </div>
+            {/if}
+
+            {call_hook name="Templates::Article::Details"}
 
         </aside>
     </div>
 </main>
+
+{call_hook name="Templates::Article::Footer::PageFooter"}
 
 {include file="frontend/components/footer.tpl"}

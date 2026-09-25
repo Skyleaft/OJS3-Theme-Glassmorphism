@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/message.tpl
  *
  * Glass Theme — System message page
@@ -49,19 +49,19 @@
                     {* Add navigation buttons for common registration messages *}
                     {elseif $messageKey == "user.login.registrationPendingValidation" || $pageTitleKey == "user.register.registrationPending"}
                         <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="index"}" class="glass-btn glass-btn-primary">
+                            <a href="{url page="index"}" class="glass-btn glass-btn-primary">
                                 {translate key="navigation.archives.continueBrowsing"}
                             </a>
-                            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="login"}" class="glass-btn">
+                            <a href="{url page="login"}" class="glass-btn">
                                 {translate key="user.login"}
                             </a>
                         </div>
                     {elseif $messageKey == "user.login.activated" || $pageTitleKey == "user.login.activated" || $pageTitleKey == "user.register.registrationConfirmed"}
                         <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-                            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="login"}" class="glass-btn glass-btn-primary">
+                            <a href="{url page="login"}" class="glass-btn glass-btn-primary">
                                 {translate key="user.login"}
                             </a>
-                            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="index"}" class="glass-btn">
+                            <a href="{url page="index"}" class="glass-btn">
                                 {translate key="navigation.archives.continueBrowsing"}
                             </a>
                         </div>

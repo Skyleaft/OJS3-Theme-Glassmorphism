@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/search.tpl
  *
  * Glass Theme — Search page
@@ -23,7 +23,7 @@
                 {translate key="plugins.themes.glassTheme.search.heading"}
             </h1>
 
-            <form method="get" action="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='search' op='search'}"
+            <form method="get" action="{url page='search' op='search'}"
                 class="search-box" role="search">
                 <label for="search-input" class="sr-only">{translate key="common.search"}</label>
 
@@ -72,9 +72,8 @@
 
             {if $results && $results->getCount()}
                 <div style="display:flex;flex-direction:column;gap:1.25rem;">
-                    {iterate from=results item=result name=resultLoop}
-                    <article class="glass-card article-card reveal
-                                    reveal-delay-{min($smarty.foreach.resultLoop.index + 1, 4)}"
+                    {iterate from=results item=result}
+                    <article class="glass-card article-card reveal"
                         aria-labelledby="result-{$result->getId()}-title">
 
                         {assign var="publication" value=$result->getCurrentPublication()}
@@ -83,9 +82,7 @@
                         {/if}
 
                         <h2 class="article-card-title" id="result-{$result->getId()}-title">
-                            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE
-                                           page='article' op='view'
-                                           path=$result->getBestId()}">
+                            <a href="{url page='article' op='view' path=$result->getBestId()}">
                                 {$publication->getLocalizedData('title')|escape}
                             </a>
                         </h2>
@@ -112,10 +109,7 @@
                                     {$publication->getData('datePublished')|date_format:$dateFormatShort}
                                 {/if}
                             </span>
-                            <a class="article-card-read" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE
-                                           page='article' op='view'
-                                           path=$result->getBestId()}" aria-label="{translate key='submission.read'}
-                                            {$publication->getLocalizedData('title')|escape}">
+                            <a class="article-card-read" href="{url page='article' op='view' path=$result->getBestId()}" aria-label="{translate key='submission.read'} {$publication->getLocalizedData('title')|escape}">
                                 {translate key="plugins.themes.glassTheme.readMore"}
                                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                                     <path d="M1 6h10M6 1l5 5-5 5" stroke="currentColor" stroke-width="1.5"
@@ -127,7 +121,7 @@
                     {/iterate}
                 </div>
 
-                {include file="frontend/components/pagination.tpl"}
+                {include file="frontend/components/pagination.tpl" iterator=$results}
 
             {elseif $query}
                 {* No results state *}

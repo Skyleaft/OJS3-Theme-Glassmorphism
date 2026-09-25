@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/privacy.tpl
  *
  * Glass Theme — Privacy Policy page
@@ -35,7 +35,7 @@
 
                 <div
                     style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--glass-border); text-align: center;">
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}"
+                    <a href="{url page='about'}"
                         class="glass-btn glass-btn-ghost">
                         {translate key="navigation.about"}
                     </a>

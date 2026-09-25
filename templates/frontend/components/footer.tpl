@@ -39,21 +39,11 @@
         <div>
             <div class="footer-col-title">{translate key="navigation.site"}</div>
             <ul class="footer-links">
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='index'}">{translate key="navigation.homePage"}</a>
-                </li>
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='issue' op='archive'}">{translate key="navigation.archives"}</a>
-                </li>
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='search'}">{translate key="common.search"}</a>
-                </li>
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}">{translate key="navigation.about"}</a>
-                </li>
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='submissions'}">{translate key="about.submissions"}</a>
-                </li>
+                <li><a href="{url page='index'}">{translate key="navigation.homePage"}</a></li>
+                <li><a href="{url page='issue' op='archive'}">{translate key="navigation.archives"}</a></li>
+                <li><a href="{url page='search'}">{translate key="common.search"}</a></li>
+                <li><a href="{url page='about'}">{translate key="navigation.about"}</a></li>
+                <li><a href="{url page='about' op='submissions'}">{translate key="about.submissions"}</a></li>
             </ul>
         </div>
 
@@ -61,15 +51,9 @@
         <div>
             <div class="footer-col-title">{translate key="about.aboutTheJournal"}</div>
             <ul class="footer-links">
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}">{translate key="about.editorialTeam"}</a>
-                </li>
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='contact'}">{translate key="about.contact"}</a>
-                </li>
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='privacy'}">{translate key="about.privacyStatement"}</a>
-                </li>
+                <li><a href="{url page='about' op='editorialTeam'}">{translate key="about.editorialTeam"}</a></li>
+                <li><a href="{url page='about' op='contact'}">{translate key="about.contact"}</a></li>
+                <li><a href="{url page='about' op='privacy'}">{translate key="about.privacyStatement"}</a></li>
             </ul>
         </div>
 
@@ -77,15 +61,9 @@
         <div>
             <div class="footer-col-title">{translate key="common.information"}</div>
             <ul class="footer-links">
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='information' op='readers'}">{translate key="navigation.infoForReaders"}</a>
-                </li>
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='information' op='authors'}">{translate key="navigation.infoForAuthors"}</a>
-                </li>
-                <li><a
-                        href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='information' op='librarians'}">{translate key="navigation.infoForLibrarians"}</a>
-                </li>
+                <li><a href="{url page='information' op='readers'}">{translate key="navigation.infoForReaders"}</a></li>
+                <li><a href="{url page='information' op='authors'}">{translate key="navigation.infoForAuthors"}</a></li>
+                <li><a href="{url page='information' op='librarians'}">{translate key="navigation.infoForLibrarians"}</a></li>
             </ul>
         </div>
 
@@ -94,22 +72,12 @@
             <div class="footer-col-title">{translate key="navigation.access"}</div>
             <ul class="footer-links">
                 {if $isUserLoggedIn}
-                    <li><a
-                            href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='user' op='profile'}">{translate key="user.profile"}</a>
-                    </li>
-                    <li><a
-                            href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='submission'}">{translate key="author.submit"}</a>
-                    </li>
-                    <li><a
-                            href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='login' op='signOut'}">{translate key="user.logOut"}</a>
-                    </li>
+                    <li><a href="{url page='user' op='profile'}">{translate key="user.profile"}</a></li>
+                    <li><a href="{url page='submission'}">{translate key="author.submit"}</a></li>
+                    <li><a href="{url page='login' op='signOut'}">{translate key="user.logOut"}</a></li>
                 {else}
-                    <li><a
-                            href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='login'}">{translate key="user.login"}</a>
-                    </li>
-                    <li><a
-                            href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='user' op='register'}">{translate key="user.register"}</a>
-                    </li>
+                    <li><a href="{url page='login'}">{translate key="user.login"}</a></li>
+                    <li><a href="{url page='user' op='register'}">{translate key="user.register"}</a></li>
                 {/if}
             </ul>
         </div>

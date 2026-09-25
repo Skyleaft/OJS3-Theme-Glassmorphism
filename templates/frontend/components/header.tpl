@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/components/header.tpl
  *
  * Glass Theme — Sticky glassmorphism navigation header
@@ -27,7 +27,6 @@
         } catch (e) {}
     })();
 </script>
-<script src="{$baseUrl}/plugins/themes/glassTheme/js/glass-theme.js" defer></script>
 {if !$pageTitleTranslated}{capture assign="pageTitleTranslated"}{translate key=$pageTitle}{/capture}{/if}
 {include file="frontend/components/headerHead.tpl"}
 <body class="pkp_page_{$requestedPage|escape} pkp_op_{$requestedOp|escape}" dir="{if $currentLocale|substr:0:2 == 'ar'}rtl{else}ltr{/if}">
@@ -36,6 +35,8 @@
     <a id="skip-to-content" class="sr-only" href="#main-content">
         {translate key="plugins.themes.glassTheme.skipToContent"}
     </a>
+
+    {call_hook name="Templates::Common::Header::PageHeader"}
 
     {* Get ISSN data for display *}
     {assign var="onlineIssn" value=$currentJournal->getData('onlineIssn')}
@@ -112,7 +113,7 @@
                     <div class="locale-dropdown" id="locale-dropdown" role="listbox">
                         {foreach from=$supportedLocales key=localeKey item=localeName}
                             <a class="locale-option{if $localeKey eq $currentLocale} current{/if}"
-                               href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='user'
+                               href="{url page='user'
                                            op='setLocale' path=$localeKey
                                            source=$smarty.server.REQUEST_URI}"
                                data-locale="{$localeKey|escape}"
@@ -147,10 +148,15 @@
         <div class="nav-inner">
 
             {* Brand / Logo *}
-            <a class="nav-brand" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='index'}"
+            <a class="nav-brand" href="{url page='index'}"
                aria-label="{$currentJournal->getLocalizedName()|escape}">
-                {if $currentJournal->getData('journalThumbnail')}
-                    <img src="{$publicFilesDir}/{$currentJournal->getData('journalThumbnail')}"
+                {if $displayPageHeaderLogo}
+                    <img src="{$publicFilesDir}/{$displayPageHeaderLogo.uploadName|escape:"url"}"
+                         alt="{$displayPageHeaderLogo.altText|escape|default:$currentJournal->getLocalizedName()|escape}"
+                         class="nav-brand-img"
+                         style="max-height:36px;width:auto;object-fit:contain;">
+                {elseif $currentJournal->getData('journalThumbnail')}
+                    <img src="{$publicFilesDir}/{$currentJournal->getData('journalThumbnail')|escape}"
                          alt="{$currentJournal->getLocalizedName()|escape}"
                          width="34" height="34"
                          class="nav-brand-img"
@@ -173,42 +179,42 @@
             <ul class="nav-links" role="list">
                 <li class="nav-link-item">
                     <a class="nav-link{if $requestedPage eq 'index' || !$requestedPage} active{/if}"
-                       href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='index'}">
+                       href="{url page='index'}">
                         {translate key="navigation.homePage"}
                     </a>
                 </li>
                 <li class="nav-link-item">
                     <a class="nav-link{if $requestedPage eq 'issue' && $requestedOp neq 'archive'} active{/if}"
-                       href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='issue' op='current'}">
+                       href="{url page='issue' op='current'}">
                         {translate key="plugins.themes.glassTheme.currentIssue"}
                     </a>
                 </li>
                 <li class="nav-link-item">
                     <a class="nav-link{if $requestedPage eq 'issue' && $requestedOp eq 'archive'} active{/if}"
-                       href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='issue' op='archive'}">
+                       href="{url page='issue' op='archive'}">
                         {translate key="navigation.archives"}
                     </a>
                 </li>
                 <li class="nav-link-item nav-has-dropdown">
                     <a class="nav-link{if $requestedPage eq 'about'} active{/if}"
-                       href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}"
+                       href="{url page='about'}"
                        aria-haspopup="true" aria-expanded="false">
                         {translate key="navigation.about"}<span class="nav-caret"></span>
                     </a>
                     <div class="nav-dropdown" role="menu">
-                        <a class="nav-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about'}" role="menuitem">
+                        <a class="nav-dropdown-item" href="{url page='about'}" role="menuitem">
                             <span class="dropdown-item-icon">📖</span>
                             <span>{translate key="about.aboutContext"}</span>
                         </a>
-                        <a class="nav-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='editorialTeam'}" role="menuitem">
+                        <a class="nav-dropdown-item" href="{url page='about' op='editorialTeam'}" role="menuitem">
                             <span class="dropdown-item-icon">👥</span>
                             <span>{translate key="about.editorialTeam"}</span>
                         </a>
-                        <a class="nav-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='submissions'}" role="menuitem">
+                        <a class="nav-dropdown-item" href="{url page='about' op='submissions'}" role="menuitem">
                             <span class="dropdown-item-icon">📝</span>
                             <span>{translate key="about.submissions"}</span>
                         </a>
-                        <a class="nav-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='about' op='contact'}" role="menuitem">
+                        <a class="nav-dropdown-item" href="{url page='about' op='contact'}" role="menuitem">
                             <span class="dropdown-item-icon">✉️</span>
                             <span>{translate key="about.contact"}</span>
                         </a>
@@ -216,7 +222,7 @@
                 </li>
                 <li class="nav-link-item">
                     <a class="nav-link{if $requestedPage eq 'search'} active{/if}"
-                       href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='search'}">
+                       href="{url page='search'}">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:-2px;margin-right:3px;" aria-hidden="true">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -251,24 +257,24 @@
                             <span class="name">{$currentUser->getFullName()|escape}</span>
                             <span class="email">{$currentUser->getEmail()|escape}</span>
                         </div>
-                        <a class="user-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='dashboard'}" role="menuitem">
+                        <a class="user-dropdown-item" href="{url page='dashboard'}" role="menuitem">
                             <span>📊</span> {translate key="navigation.dashboard"}
                         </a>
-                        <a class="user-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='user' op='profile'}" role="menuitem">
+                        <a class="user-dropdown-item" href="{url page='user' op='profile'}" role="menuitem">
                             <span>👤</span> {translate key="user.profile"}
                         </a>
-                        <a class="user-dropdown-item" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='submission'}" role="menuitem">
+                        <a class="user-dropdown-item" href="{url page='submission'}" role="menuitem">
                             <span>📝</span> {translate key="navigation.submissions"}
                         </a>
                         <div style="border-top:1px solid var(--glass-border);margin:0.5rem 0;"></div>
-                        <a class="user-dropdown-item logout" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='login' op='signOut'}" role="menuitem">
+                        <a class="user-dropdown-item logout" href="{url page='login' op='signOut'}" role="menuitem">
                             <span>🚪</span> {translate key="user.logOut"}
                         </a>
                     </div>
                 </div>
                 {else}
                     {* Non-logged in: Login Link *}
-                    <a class="nav-link nav-login-link" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='login'}">
+                    <a class="nav-link nav-login-link" href="{url page='login'}">
                         {translate key="user.login"}
                     </a>
                 {/if}
@@ -277,9 +283,9 @@
                 {if $currentJournal->getData('allowPublicRegistration') || $isUserLoggedIn}
                     <a class="glass-btn glass-btn-primary nav-cta-btn"
                        href="{if $isUserLoggedIn}
-                                  {url router=PKP\core\PKPApplication::ROUTE_PAGE page='submission'}
+                                  {url page='submission'}
                               {else}
-                                  {url router=PKP\core\PKPApplication::ROUTE_PAGE page='register'}
+                                  {url page='register'}
                               {/if}">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             {if $isUserLoggedIn}
@@ -347,8 +353,7 @@
                 <li>
                     <a class="nav-link"
                        style="display:block;padding:.75rem 1rem;border-radius:.5rem;"
-                       href="{url router=PKP\core\PKPApplication::ROUTE_PAGE
-                                   page=$item.page op=$item.op|default:''}">
+                       href="{url page=$item.page op=$item.op|default:''}">
                         {translate key=$item.label}
                     </a>
                 </li>
@@ -371,33 +376,33 @@
                     </div>
                 </li>
                 <li>
-                    <a class="nav-link" style="display:block;padding:.75rem 1rem;border-radius:.5rem;" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='dashboard'}">
+                    <a class="nav-link" style="display:block;padding:.75rem 1rem;border-radius:.5rem;" href="{url page='dashboard'}">
                         <span>📊</span> {translate key="navigation.dashboard"}
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" style="display:block;padding:.75rem 1rem;border-radius:.5rem;" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='user' op='profile'}">
+                    <a class="nav-link" style="display:block;padding:.75rem 1rem;border-radius:.5rem;" href="{url page='user' op='profile'}">
                         <span>👤</span> {translate key="user.profile"}
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" style="display:block;padding:.75rem 1rem;border-radius:.5rem;" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='submission'}">
+                    <a class="nav-link" style="display:block;padding:.75rem 1rem;border-radius:.5rem;" href="{url page='submission'}">
                         <span>📝</span> {translate key="navigation.submissions"}
                     </a>
                 </li>
                 <li>
-                    <a class="nav-link" style="display:block;padding:.75rem 1rem;border-radius:.5rem;color:#ef4444;" href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='login' op='signOut'}">
+                    <a class="nav-link" style="display:block;padding:.75rem 1rem;border-radius:.5rem;color:#ef4444;" href="{url page='login' op='signOut'}">
                         <span>🚪</span> {translate key="user.logOut"}
                     </a>
                 </li>
                 {else}
                 <li style="margin-top:0.5rem;display:flex;flex-direction:column;gap:0.5rem;">
                     <a class="glass-btn glass-btn-primary" style="width:100%;justify-content:center;"
-                       href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='register'}">
+                       href="{url page='register'}">
                         {translate key="user.register"}
                     </a>
                     <a class="glass-btn glass-btn-ghost" style="width:100%;justify-content:center;"
-                       href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='login'}">
+                       href="{url page='login'}">
                         {translate key="user.login"}
                     </a>
                 </li>

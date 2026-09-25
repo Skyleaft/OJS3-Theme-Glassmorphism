@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/userRegisterComplete.tpl
  *
  * Glass Theme — Registration success page
@@ -33,15 +33,15 @@
                 </div>
 
                 <div style="display: flex; flex-direction: column; gap: 1rem; align-items: stretch; max-width: 320px; margin: 0 auto;">
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="submission" op="wizard"}" class="glass-btn glass-btn-primary" style="justify-content: center; padding: 1rem;">
+                    <a href="{url page="submission" op="wizard"}" class="glass-btn glass-btn-primary" style="justify-content: center; padding: 1rem;">
                         <span>📝</span> {translate key="author.submit"}
                     </a>
                     
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="user" op="profile"}" class="glass-btn" style="justify-content: center; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);">
+                    <a href="{url page="user" op="profile"}" class="glass-btn" style="justify-content: center; padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);">
                         <span>👤</span> {translate key="user.profile.editProfile"}
                     </a>
 
-                    <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="index"}" class="glass-btn" style="justify-content: center; padding: 1rem; background: transparent; border: 1px solid transparent;">
+                    <a href="{url page="index"}" class="glass-btn" style="justify-content: center; padding: 1rem; background: transparent; border: 1px solid transparent;">
                         {translate key="navigation.archives.continueBrowsing"}
                     </a>
                 </div>

@@ -3,8 +3,8 @@
 <version>
 	<application>glassTheme</application>
 	<type>plugins.themes</type>
-	<release>1.0.8.0</release>
-	<date>2026-08-31</date>
+	<release>1.0.9.0</release>
+	<date>2026-09-25</date>
 	<lazy-load>1</lazy-load>
 	<class>GlassThemePlugin</class>
 </version>

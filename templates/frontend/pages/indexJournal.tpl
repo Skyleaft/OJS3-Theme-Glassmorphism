@@ -1,4 +1,4 @@
-{**
+﻿{**
  * @file templates/frontend/pages/indexJournal.tpl
  *
  * Glass Theme — Journal index (homepage)
@@ -38,12 +38,12 @@
 
                 <div class="hero-actions">
                     {if $isUserLoggedIn}
-                        <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='submission'}"
+                        <a href="{url page='submission'}"
                             class="glass-btn glass-btn-primary">
                             {translate key="author.submit"}
                         </a>
                     {else}
-                        <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='login' source=$smarty.server.REQUEST_URI}"
+                        <a href="{url page='login' source=$smarty.server.REQUEST_URI}"
                             class="glass-btn glass-btn-primary">
                             {translate key="user.login"}
                         </a>
@@ -86,7 +86,7 @@
                             <h3 style="font-size: .95rem; font-weight: 600; color: var(--glass-text); line-height: 1.4;">
                                 {$issue->getIssueIdentification()|escape}
                             </h3>
-                            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='issue' op='view' path=$issue->getBestIssueId()}"
+                            <a href="{url page='issue' op='view' path=$issue->getBestIssueId()}"
                                 class="glass-btn glass-btn-primary"
                                 style="margin-top: 1.25rem; width: 100%; justify-content: center;">
                                 {translate key="plugins.themes.glassTheme.viewIssue"}
@@ -163,7 +163,7 @@
                                     {/if}
 
                                     <div style="display: flex; align-items: center; gap: 1.5rem;">
-                                        <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='issue' op='view' path=$issue->getBestIssueId()}"
+                                        <a href="{url page='issue' op='view' path=$issue->getBestIssueId()}"
                                             class="glass-btn glass-btn-primary"
                                             style="padding: 1rem 2.5rem; font-size: 1rem;">
                                             {translate key="plugins.themes.glassTheme.viewIssue"}
@@ -178,8 +178,79 @@
                                 </div>
                             </div>
                         </div>
-                    {/if}
 
+                        {* Table of Contents (Articles in Current Issue) *}
+                        {if $publishedSubmissions && $publishedSubmissions|@count}
+                            <div class="current-issue-articles" style="margin-bottom: 4rem;">
+                                <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
+                                    <span class="section-eyebrow">{translate key="issue.toc"}</span>
+                                    <h2 class="section-title">{translate key="article.articles"}</h2>
+                                </div>
+
+                                {foreach from=$publishedSubmissions item=section}
+                                    <div class="toc-section" style="margin-bottom: 2.5rem;">
+                                        {if $section.title}
+                                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+                                                <h3 class="sidebar-title" style="margin-bottom: 0; white-space: nowrap; font-size: 1rem;">
+                                                    {$section.title|escape}
+                                                </h3>
+                                                <div style="height: 1px; background: var(--glass-border); flex: 1;"></div>
+                                            </div>
+                                        {/if}
+
+                                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                            {foreach from=$section.articles item=article}
+                                                {assign var="publication" value=$article->getCurrentPublication()}
+                                                <div class="glass-card article-row-card"
+                                                    style="padding: 1.5rem; transition: transform .2s ease, background .2s ease;">
+                                                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap;">
+                                                        <div style="flex: 1; min-width: 260px;">
+                                                            <h4 style="font-size: 1.05rem; margin-bottom: .5rem; line-height: 1.4; font-weight: 600;">
+                                                                <a href="{url page="article" op="view" path=$article->getBestId()}"
+                                                                    style="color: inherit; text-decoration: none; transition: color .2s;">
+                                                                    {$publication->getLocalizedData('title')|strip_tags}
+                                                                </a>
+                                                            </h4>
+
+                                                            <div style="font-size: .85rem; color: var(--glass-text-muted); margin-bottom: .75rem; font-weight: 500;">
+                                                                {$publication->getAuthorString($authorUserGroups)|escape}
+                                                            </div>
+
+                                                            {if $publication->getData('pub-id::doi')}
+                                                                <div style="margin-bottom: .75rem;">
+                                                                    <a href="https://doi.org/{$publication->getData('pub-id::doi')|escape}" target="_blank" rel="noopener noreferrer" style="font-size: .75rem; color: var(--color-accent-light); text-decoration: none;">
+                                                                        https://doi.org/{$publication->getData('pub-id::doi')|escape}
+                                                                    </a>
+                                                                </div>
+                                                            {/if}
+
+                                                            <div style="display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;">
+                                                                {foreach from=$publication->getData('galleys') item=galley}
+                                                                    <a class="glass-btn glass-btn-primary"
+                                                                        style="padding: .35rem .75rem; font-size: .75rem; border-radius: .5rem; font-weight: 600;"
+                                                                        href="{url page="article" op="view" path=$article->getBestId()|to_array:$galley->getBestGalleyId()}">
+                                                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                                                            stroke="currentColor" stroke-width="2.5"
+                                                                            style="margin-right: .3rem;">
+                                                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                                                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                                                                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                                                                        </svg>
+                                                                        {$galley->getGalleyLabel()|escape}
+                                                                    </a>
+                                                                {/foreach}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {/foreach}
+                                        </div>
+                                    </div>
+                                {/foreach}
+                            </div>
+                        {/if}
+                    {/if}
 
                     {* Announcements *}
                     {if $announcements && $announcements|@count}
@@ -197,7 +268,7 @@
                                             {$announcement->getDatePosted()|date_format:$dateFormatShort}
                                         </span>
                                         <h3 style="font-size: 1.1rem; margin-bottom: .75rem;">
-                                            <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page='announcement' op='view' path=$announcement->getId()}"
+                                            <a href="{url page='announcement' op='view' path=$announcement->getId()}"
                                                 style="color: inherit; text-decoration: none;">
                                                 {$announcement->getLocalizedTitle()|escape}
                                             </a>

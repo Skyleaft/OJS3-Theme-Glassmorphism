@@ -4,8 +4,8 @@
   "description": "Modern glassmorphism theme for OJS 3.5",
   "private": true,
   "scripts": {
-    "build": "npx @tailwindcss/cli -i ./tailwind.css -o ./styles/glass-theme.css --minify",
-    "dev": "npx @tailwindcss/cli -i ./tailwind.css -o ./styles/glass-theme.css --watch"
+    "build": "tailwindcss -i ./tailwind.css -o ./styles/glass-theme.css --minify",
+    "dev": "tailwindcss -i ./tailwind.css -o ./styles/glass-theme.css --watch"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.0.0",

@@ -151,6 +151,13 @@ class GlassThemePlugin extends ThemePlugin
 
         // ── Template Data ─────────────────────────────────────────────────
         \PKP\plugins\Hook::add('TemplateManager::display', [$this, 'loadTemplateData']);
+
+        // ── Route /user/lostPassword to LoginHandler ──────────────────────
+        if (class_exists('\PKP\plugins\Hook')) {
+            \PKP\plugins\Hook::add('LoadHandler', [$this, 'handleLostPasswordRoute']);
+        } elseif (class_exists('\HookRegistry')) {
+            \HookRegistry::register('LoadHandler', [$this, 'handleLostPasswordRoute']);
+        }
     }
 
     /**
@@ -184,6 +191,33 @@ class GlassThemePlugin extends ThemePlugin
             ];
         }
         $templateMgr->assign('sidebarIndexedList', $indexedList);
+
+        return false;
+    }
+
+    /**
+     * Route /user/lostPassword (and related reset password actions) to LoginHandler
+     * so both /user/lostPassword and /login/lostPassword work seamlessly.
+     */
+    public function handleLostPasswordRoute($hookName, $args)
+    {
+        $page = &$args[0];
+        $op = &$args[1];
+        $sourceFile = &$args[2];
+        $handler = &$args[3];
+
+        if ($page === 'user' && in_array($op, ['lostPassword', 'requestResetPassword', 'resetPassword', 'updateResetPassword'])) {
+            $page = 'login';
+            $sourceFile = sprintf('pages/%s/index.php', $page);
+
+            if (class_exists('\PKP\pages\login\LoginHandler')) {
+                $handler = new \PKP\pages\login\LoginHandler();
+                return true;
+            } elseif (class_exists('LoginHandler')) {
+                $handler = new \LoginHandler();
+                return true;
+            }
+        }
 
         return false;
     }

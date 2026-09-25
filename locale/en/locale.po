@@ -425,3 +425,20 @@ msgstr "Indexed By"
 msgid "plugins.themes.glassTheme.sidebar.indexedBy.notSet"
 msgstr "No indexing databases configured yet."
 
+# ── Auth & Account ─────────────────────────────────────────────────────────────
+msgid "plugins.themes.glassTheme.login.welcomeBack"
+msgstr "Welcome back! Please enter your details to sign in."
+
+msgid "plugins.themes.glassTheme.login.noAccount"
+msgstr "Don't have an account?"
+
+msgid "plugins.themes.glassTheme.login.registerNow"
+msgstr "Register now"
+
+msgid "plugins.themes.glassTheme.lostPassword.subtitle"
+msgstr "Enter your registered email address below and instructions on how to reset your password will be sent to you."
+
+msgid "plugins.themes.glassTheme.lostPassword.backToLogin"
+msgstr "Back to Login"
+
+

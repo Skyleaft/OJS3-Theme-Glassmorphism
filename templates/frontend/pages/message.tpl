@@ -33,12 +33,21 @@
                 <div class="article-content" style="color: var(--glass-text-muted); line-height: 1.8;">
                     {if $messageKey}
                         {translate key=$messageKey}
-                    {else}
-                        {$message}
+                    {elseif $messageTranslated}
+                        {$messageTranslated}
+                    {elseif $message}
+                        {translate key=$message}
                     {/if}
 
+                    {* Back link button when provided by controller (e.g. lostPassword confirmation) *}
+                    {if $backLink}
+                        <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <a href="{$backLink|escape}" class="glass-btn glass-btn-primary">
+                                {if $backLinkLabel}{translate key=$backLinkLabel}{else}{translate key="common.back"}{/if}
+                            </a>
+                        </div>
                     {* Add navigation buttons for common registration messages *}
-                    {if $messageKey == "user.login.registrationPendingValidation" || $pageTitleKey == "user.register.registrationPending"}
+                    {elseif $messageKey == "user.login.registrationPendingValidation" || $pageTitleKey == "user.register.registrationPending"}
                         <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
                             <a href="{url router=PKP\core\PKPApplication::ROUTE_PAGE page="index"}" class="glass-btn glass-btn-primary">
                                 {translate key="navigation.archives.continueBrowsing"}

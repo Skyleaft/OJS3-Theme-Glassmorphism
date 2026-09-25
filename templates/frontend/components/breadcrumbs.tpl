@@ -87,13 +87,17 @@
                     {elseif $requestedPage eq 'search'}
                         {translate key="common.search"}
                     {elseif $requestedPage eq 'login'}
-                        {translate key="user.login"}
+                        {if $requestedOp eq 'lostPassword'}{translate key="user.login.resetPassword"}
+                        {else}{translate key="user.login"}
+                        {/if}
                     {elseif $requestedPage eq 'register'}
                         {translate key="user.register"}
                     {elseif $requestedPage eq 'submission'}
                         {translate key="navigation.submissions"}
                     {elseif $requestedPage eq 'user'}
-                        {translate key="user.profile"}
+                        {if $requestedOp eq 'lostPassword'}{translate key="user.login.resetPassword"}
+                        {else}{translate key="user.profile"}
+                        {/if}
                     {else}
                         {$requestedPage|ucfirst|escape}
                     {/if}

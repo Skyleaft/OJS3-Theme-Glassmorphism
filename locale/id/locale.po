@@ -425,3 +425,20 @@ msgstr "Terindeks Oleh"
 msgid "plugins.themes.glassTheme.sidebar.indexedBy.notSet"
 msgstr "Belum ada basis data pengindeks yang dikonfigurasi."
 
+# ── Auth & Account ─────────────────────────────────────────────────────────────
+msgid "plugins.themes.glassTheme.login.welcomeBack"
+msgstr "Selamat datang kembali! Silakan masukkan detail akun Anda untuk masuk."
+
+msgid "plugins.themes.glassTheme.login.noAccount"
+msgstr "Belum memiliki akun?"
+
+msgid "plugins.themes.glassTheme.login.registerNow"
+msgstr "Daftar sekarang"
+
+msgid "plugins.themes.glassTheme.lostPassword.subtitle"
+msgstr "Masukkan alamat email terdaftar Anda di bawah ini dan instruksi untuk mengatur ulang kata sandi akan dikirimkan kepada Anda."
+
+msgid "plugins.themes.glassTheme.lostPassword.backToLogin"
+msgstr "Kembali ke Halaman Masuk"
+
+

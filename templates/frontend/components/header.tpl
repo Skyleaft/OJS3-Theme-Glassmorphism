@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/components/header.tpl
  *
  * Glass Theme — Sticky glassmorphism navigation header
@@ -27,6 +27,10 @@
         } catch (e) {}
     })();
 </script>
+<script src="{$baseUrl}/{$glassThemePath|default:'plugins/themes/glassTheme'}/js/glass-theme.js" defer></script>
+<noscript>
+    <style>.reveal { opacity: 1 !important; transform: none !important; }</style>
+</noscript>
 {if !$pageTitleTranslated}{capture assign="pageTitleTranslated"}{translate key=$pageTitle}{/capture}{/if}
 {include file="frontend/components/headerHead.tpl"}
 <body class="pkp_page_{$requestedPage|escape} pkp_op_{$requestedOp|escape}" dir="{if $currentLocale|substr:0:2 == 'ar'}rtl{else}ltr{/if}">

@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/indexJournal.tpl
  *
  * Glass Theme — Journal index (homepage)

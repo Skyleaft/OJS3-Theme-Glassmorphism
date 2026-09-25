@@ -4,6 +4,10 @@
 
 (() => {
     'use strict';
+
+    if (window.__glassThemeInitialized) return;
+    window.__glassThemeInitialized = true;
+
     console.log('Glass Theme: JS loaded and running');
 
     const STORAGE_THEME_KEY = 'glass-theme-color-mode';
@@ -62,8 +66,6 @@
     function initTransitions() {
         const body = document.body;
         body.classList.add('page-fade');
-        // The browser handles the actual navigation. 
-        // Fade-in is handled by the 'page-fade' CSS class.
     }
 
     // ─── 3. Nav & Scroll ─────────────────────────────────────────────────────
@@ -105,27 +107,54 @@
         // User Dropdown
         const userBtn = $('#user-btn');
         const userDrop = $('#user-dropdown');
-        console.log('User Menu Check:', { userBtn, userDrop });
         if (userBtn && userDrop) {
-            console.log('User Menu initialized');
             userBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const isOpen = userDrop.classList.toggle('open');
                 userBtn.setAttribute('aria-expanded', isOpen);
-                // Close locale if open
                 if (localeDrop) localeDrop.classList.remove('open');
+            });
+            userDrop.addEventListener('click', (e) => {
+                e.stopPropagation();
             });
             document.addEventListener('click', () => {
                 userDrop.classList.remove('open');
                 userBtn.setAttribute('aria-expanded', 'false');
             });
         }
+
+        // Global Escape key to dismiss menus
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (userDrop) {
+                    userDrop.classList.remove('open');
+                    userBtn?.setAttribute('aria-expanded', 'false');
+                }
+                if (localeDrop) {
+                    localeDrop.classList.remove('open');
+                }
+            }
+        });
+
+        // Search shortcut ('/' key to focus search)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) {
+                const searchInput = $('#search-input') || $('input[name="query"]');
+                if (searchInput) {
+                    e.preventDefault();
+                    searchInput.focus();
+                    searchInput.select();
+                }
+            }
+        });
     }
 
     // ─── 4. Reveal ───────────────────────────────────────────────────────────
     function initReveal() {
         const elements = $$('.reveal');
-        if (!elements.length || !('IntersectionObserver' in window)) {
+        if (!elements.length) return;
+
+        if (!('IntersectionObserver' in window)) {
             elements.forEach(el => el.classList.add('visible'));
             return;
         }
@@ -137,12 +166,12 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.05, rootMargin: '50px' });
 
         elements.forEach(el => observer.observe(el));
         setTimeout(() => {
             $$('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
-        }, 1500);
+        }, 800);
     }
 
     // ─── Start ───────────────────────────────────────────────────────────────

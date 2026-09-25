@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/userRegisterPending.tpl
  *
  * Glass Theme — Registration pending page (email verification required)

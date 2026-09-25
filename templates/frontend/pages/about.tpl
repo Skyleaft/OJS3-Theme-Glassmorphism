@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/about.tpl
  *
  * Glass Theme — About page

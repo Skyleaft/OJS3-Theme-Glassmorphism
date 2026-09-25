@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/components/breadcrumbs.tpl
  *
  * Glass Theme — Frosted-glass breadcrumb bar with smart dynamic fallback

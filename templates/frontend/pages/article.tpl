@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/article.tpl
  *
  * Glass Theme — Article detail page

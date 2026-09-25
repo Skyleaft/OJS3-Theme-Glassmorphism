@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/submissions.tpl
  *
  * Glass Theme — Submissions page

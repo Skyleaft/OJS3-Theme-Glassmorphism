@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/userRegisterConfirmation.tpl
  *
  * Glass Theme — Registration confirmation success page (after email verification)

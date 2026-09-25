@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/userRegisterComplete.tpl
  *
  * Glass Theme — Registration success page

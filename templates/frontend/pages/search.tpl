@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/search.tpl
  *
  * Glass Theme — Search page
@@ -6,7 +6,7 @@
  *           skeleton loading state, pagination.
  *}
 
-{include file="frontend/components/header.tpl"}
+{include file="frontend/components/header.tpl" pageTitle="common.search"}
 
 <main id="main-content" class="page-fade">
 
@@ -55,13 +55,26 @@
     <section class="section" style="padding-top:1.5rem;">
         <div class="page-container">
 
+            {* Calculate result count reliably across OJS 3.3, 3.4, and 3.5 *}
+            {if $results}
+                {if method_exists($results, 'count')}
+                    {assign var="resultsCount" value=$results->count()}
+                {elseif method_exists($results, 'getCount')}
+                    {assign var="resultsCount" value=$results->getCount()}
+                {else}
+                    {assign var="resultsCount" value=$results|@count}
+                {/if}
+            {else}
+                {assign var="resultsCount" value=0}
+            {/if}
+
             {if $query}
                 {* Result count *}
                 <div class="reveal" style="margin-bottom:1.5rem;font-size:.875rem;
                                            color:var(--glass-text-muted);">
-                    {if $results}
+                    {if $resultsCount > 0}
                         {translate key="plugins.themes.glassTheme.search.results"
-                                           count=$results->getCount()
+                                           count=$resultsCount
                                            query=$query|escape}
                     {else}
                         {translate key="plugins.themes.glassTheme.search.noResults"
@@ -70,55 +83,92 @@
                 </div>
             {/if}
 
-            {if $results && $results->getCount()}
+            {if $results && $resultsCount > 0}
                 <div style="display:flex;flex-direction:column;gap:1.25rem;">
-                    {iterate from=results item=result}
-                    <article class="glass-card article-card reveal"
-                        aria-labelledby="result-{$result->getId()}-title">
-
-                        {assign var="publication" value=$result->getCurrentPublication()}
-                        {if $publication->getData('sectionTitle')}
-                            <div class="article-card-section">{$publication->getData('sectionTitle')|escape}</div>
+                    {foreach from=$results item=result}
+                        {* Support both OJS 3.4/3.5 array format ($result.submission) and legacy Submission object *}
+                        {if is_array($result) && $result.submission}
+                            {assign var="article" value=$result.submission}
+                        {elseif is_object($result) && method_exists($result, 'getSubmission')}
+                            {assign var="article" value=$result->getSubmission()}
+                        {else}
+                            {assign var="article" value=$result}
                         {/if}
 
-                        <h2 class="article-card-title" id="result-{$result->getId()}-title">
-                            <a href="{url page='article' op='view' path=$result->getBestId()}">
-                                {$publication->getLocalizedData('title')|escape}
-                            </a>
-                        </h2>
+                        {if $article}
+                            {if method_exists($article, 'getCurrentPublication')}
+                                {assign var="publication" value=$article->getCurrentPublication()}
+                            {else}
+                                {assign var="publication" value=null}
+                            {/if}
 
-                        {assign var="resultAuthors" value=$publication->getData('authors')}
-                        {if $resultAuthors}
-                            <div class="article-card-authors">
-                                {foreach from=$resultAuthors item=ra name=ral}
-                                    {$ra->getFullName()|escape}{if not $smarty.foreach.ral.last}, {/if}
-                                {/foreach}
-                            </div>
-                        {/if}
+                            {if method_exists($article, 'getBestId')}
+                                {assign var="articleBestId" value=$article->getBestId()}
+                            {elseif method_exists($article, 'getId')}
+                                {assign var="articleBestId" value=$article->getId()}
+                            {else}
+                                {assign var="articleBestId" value=""}
+                            {/if}
 
-                        {if $publication->getLocalizedData('abstract')}
-                            <p style="font-size:.85rem;color:var(--glass-text-muted);
-                                      line-height:1.65;margin-top:.25rem;">
-                                {$publication->getLocalizedData('abstract')|strip_tags|truncate:240:"…"|escape}
-                            </p>
-                        {/if}
+                            <article class="glass-card article-card reveal"
+                                aria-labelledby="result-{$articleBestId|escape}-title">
 
-                        <div class="article-card-footer">
-                            <span>
-                                {if $publication->getData('datePublished')}
-                                    {$publication->getData('datePublished')|date_format:$dateFormatShort}
+                                {if $publication && $publication->getData('sectionTitle')}
+                                    <div class="article-card-section">{$publication->getData('sectionTitle')|escape}</div>
                                 {/if}
-                            </span>
-                            <a class="article-card-read" href="{url page='article' op='view' path=$result->getBestId()}" aria-label="{translate key='submission.read'} {$publication->getLocalizedData('title')|escape}">
-                                {translate key="plugins.themes.glassTheme.readMore"}
-                                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-                                    <path d="M1 6h10M6 1l5 5-5 5" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </a>
-                        </div>
-                    </article>
-                    {/iterate}
+
+                                <h2 class="article-card-title" id="result-{$articleBestId|escape}-title">
+                                    <a href="{url page='article' op='view' path=$articleBestId}">
+                                        {if $publication}
+                                            {$publication->getLocalizedData('title')|escape}
+                                        {elseif method_exists($article, 'getLocalizedTitle')}
+                                            {$article->getLocalizedTitle()|escape}
+                                        {/if}
+                                    </a>
+                                </h2>
+
+                                {if $publication}
+                                    {assign var="resultAuthors" value=$publication->getData('authors')}
+                                {elseif method_exists($article, 'getAuthors')}
+                                    {assign var="resultAuthors" value=$article->getAuthors()}
+                                {else}
+                                    {assign var="resultAuthors" value=null}
+                                {/if}
+
+                                {if $resultAuthors}
+                                    <div class="article-card-authors">
+                                        {foreach from=$resultAuthors item=ra name=ral}
+                                            {if is_object($ra) && method_exists($ra, 'getFullName')}
+                                                {$ra->getFullName()|escape}{if not $smarty.foreach.ral.last}, {/if}
+                                            {/if}
+                                        {/foreach}
+                                    </div>
+                                {/if}
+
+                                {if $publication && $publication->getLocalizedData('abstract')}
+                                    <p style="font-size:.85rem;color:var(--glass-text-muted);
+                                              line-height:1.65;margin-top:.25rem;">
+                                        {$publication->getLocalizedData('abstract')|strip_tags|truncate:240:"…"|escape}
+                                    </p>
+                                {/if}
+
+                                <div class="article-card-footer">
+                                    <span>
+                                        {if $publication && $publication->getData('datePublished')}
+                                            {$publication->getData('datePublished')|date_format:$dateFormatShort}
+                                        {/if}
+                                    </span>
+                                    <a class="article-card-read" href="{url page='article' op='view' path=$articleBestId}" aria-label="{translate key='submission.read'} {if $publication}{$publication->getLocalizedData('title')|escape}{/if}">
+                                        {translate key="plugins.themes.glassTheme.readMore"}
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                                            <path d="M1 6h10M6 1l5 5-5 5" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </article>
+                        {/if}
+                    {/foreach}
                 </div>
 
                 {include file="frontend/components/pagination.tpl" iterator=$results}

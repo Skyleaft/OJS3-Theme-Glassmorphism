@@ -20,7 +20,7 @@
         {if $pageUrl}
             {assign var="prevLink" value=$pageUrl|replace:"{page}":$iterator->getPreviousPage()}
         {else}
-            {capture assign="prevLink"}{url router=$smarty.const.ROUTE_PAGE params=$smarty.get searchPage=$iterator->getPreviousPage()}{/capture}
+            {capture assign="prevLink"}{url params=$smarty.get searchPage=$iterator->getPreviousPage()}{/capture}
         {/if}
         <a class="page-btn" href="{$prevLink|escape}" rel="prev" aria-label="{translate key='common.previous'}">
             <svg width="7" height="12" viewBox="0 0 7 12" fill="none" aria-hidden="true">
@@ -47,7 +47,7 @@
                 {if $pageUrl}
                     {assign var="pageLink" value=$pageUrl|replace:"{page}":$p}
                 {else}
-                    {capture assign="pageLink"}{url router=$smarty.const.ROUTE_PAGE params=$smarty.get searchPage=$p}{/capture}
+                    {capture assign="pageLink"}{url params=$smarty.get searchPage=$p}{/capture}
                 {/if}
                 <a class="page-btn" href="{$pageLink|escape}" aria-label="{translate key='common.pageNum' page=$p}">{$p}</a>
             {/if}
@@ -63,7 +63,7 @@
         {if $pageUrl}
             {assign var="nextLink" value=$pageUrl|replace:"{page}":$iterator->getNextPage()}
         {else}
-            {capture assign="nextLink"}{url router=$smarty.const.ROUTE_PAGE params=$smarty.get searchPage=$iterator->getNextPage()}{/capture}
+            {capture assign="nextLink"}{url params=$smarty.get searchPage=$iterator->getNextPage()}{/capture}
         {/if}
         <a class="page-btn" href="{$nextLink|escape}" rel="next" aria-label="{translate key='common.next'}">
             <svg width="7" height="12" viewBox="0 0 7 12" fill="none" aria-hidden="true">

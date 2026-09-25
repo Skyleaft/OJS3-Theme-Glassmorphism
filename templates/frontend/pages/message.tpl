@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/message.tpl
  *
  * Glass Theme — System message page

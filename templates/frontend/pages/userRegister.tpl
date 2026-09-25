@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/userRegister.tpl
  *
  * Glass Theme — Registration page with split layout

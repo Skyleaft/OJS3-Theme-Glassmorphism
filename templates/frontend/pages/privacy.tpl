@@ -1,4 +1,4 @@
-﻿{**
+{**
  * @file templates/frontend/pages/privacy.tpl
  *
  * Glass Theme — Privacy Policy page

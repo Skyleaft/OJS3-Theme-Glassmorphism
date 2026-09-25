@@ -169,6 +169,7 @@ class GlassThemePlugin extends ThemePlugin
     public function loadTemplateData($hookName, $args)
     {
         $templateMgr = $args[0];
+        $templateMgr->assign('glassThemePath', $this->getPluginPath());
         $templateMgr->assign('colorMode', $this->getOption(self::OPTION_DEFAULT_MODE) ?? 'dark');
 
         // ── Sidebar data ─────────────────────────────────────────────────
